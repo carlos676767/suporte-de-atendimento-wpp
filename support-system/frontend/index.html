@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte ao Cliente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" id="tickets-link">Tickets</a></li>
+                <li><a href="#" id="login-link">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="login-section" class="hidden">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
+        <section id="tickets-section" class="hidden">
+            <h2>Tickets de Suporte</h2>
+            <ul id="tickets-list"></ul>
+        </section>
+        <section id="ticket-detail-section" class="hidden">
+            <h2>Detalhes do Ticket</h2>
+            <div id="ticket-detail"></div>
+            <button id="back-button">Voltar</button>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
