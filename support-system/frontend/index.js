@@ -10,10 +10,9 @@ addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data.login);
-
       if (!data.login) {
-        location.href = "./login/login.html";
         alertaDeslogado()
+        redirecionar()
       }
     })
     .catch((error) => {
@@ -21,11 +20,20 @@ addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
+const redirecionar = () => {
+  setInterval(() => {
+    location.href = "./login/login.html";
+  }, 5000);
+};
+
 const alertaDeslogado = () => {
   Swal.fire({
     icon: "warning",
     title: "Sessão Expirada",
-    text: "Sua sessão expirou. Por favor, faça login novamente.",
+    text: "Sua sessão expirou. Por favor, faça login novamente. Você será redirecionado para a tela de login em 5 segundos.",
     confirmButtonText: "OK",
   });
 };
+
+
