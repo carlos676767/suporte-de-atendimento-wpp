@@ -1,29 +1,49 @@
 const jsonWebToken = require("jsonwebtoken");
-const cryopteor = require("crypto");
-const dbAuthAdmin = require("../db/adminLogin");
-const SECRET_KEY = cryopteor.randomBytes(32).toString("hex");
-require('dotenv').config({ path: '/app.env' })
 const bodyParser = require('body-parser');
-const cors = require("cors")
-const path = require("path")
+const cors = require("cors");
+const dotenv = require('dotenv');
+const dbAuthAdmin = require("../db/adminLogin");
+
+dotenv.config({ path: '/app.env' });
+const SECRET_KEY = "2544112c3e76884a12fa2336cbf59dabc38fe1f80db1e970705267dca96bfa09"
+
 module.exports = (api) => {
-  api.use(cors())
-  api.use(bodyParser.json())
-  api.post("/loginAdm", async(req, res) => {
-    try {
-      const {usuario, senha} =  req.body
-      const db = await dbAuthAdmin()
-        if (usuario == db.usuario && senha == db.senha) {
-          const jwt = jsonWebToken.sign({usuario, senha}, SECRET_KEY, {expiresIn: "1h"})
-          res.send({status: 200, msg: "login feito com sucesso.", login: true, token: jwt})
-          // res.sendFile(path.join(__dirname + '/support-system/frontend/ticket2.html'))
-        }else{
-          res.status(404).send({status: 404, login: false, msg: "Dados incorretos, verifique as credenciais."})
+  api.use(cors());
+  api.use(bodyParser.json());
+  checkingJWT(api);
+  post(api);
+};
+
+function checkingJWT(api) {
+  api.use((req, res, next) => {
+    if (req.headers.authorization) {
+      const token = req.headers.authorization.slice(7);
+      jsonWebToken.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+          res.status(401).send({ login: false, status: 401 })
+          next();
         }
-    } catch (error) {
-      console.log(error);
-      req.send({status: 404, login: false, msg: "ocorreu um erro tente novamente."}).status(404)  
-    }
+      });
+    } else {
+      next();
+    };
   });
 };
 
+function post(api) {
+  api.post("/loginAdm", async (req, res) => {
+    try {
+      const { usuario, senha } = req.body;
+      const db = await dbAuthAdmin();
+      if (usuario == db.usuario && senha == db.senha) {
+        const jwt = jsonWebToken.sign({ usuario, senha }, SECRET_KEY, { expiresIn: "60s" })
+        res.send({ status: 200, msg: "login feito com sucesso.", login: true, token: jwt })
+      } else {
+        res.status(404).send({ status: 404, login: false, msg: "Dados incorretos, verifique as credenciais." })
+      }
+    } catch (error) {
+      console.log(error);
+      res.send({ status: 404, login: false, msg: "ocorreu um erro tente novamente." }).status(404)
+    };
+  });
+}

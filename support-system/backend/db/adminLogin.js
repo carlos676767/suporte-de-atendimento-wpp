@@ -1,7 +1,6 @@
 const { MongoClient } = require('mongodb');
 const path = require("path")
 const caminhonv = path.resolve(".env")
-console.log(caminhonv);
 require('dotenv').config({ path:caminhonv })
 const url = `mongodb+srv://admin:admin1234@dados.7d94myt.mongodb.net/`
 const dbName = "suporteWpp"
