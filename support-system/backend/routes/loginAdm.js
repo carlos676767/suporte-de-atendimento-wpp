@@ -3,36 +3,37 @@ const cryopteor = require("crypto");
 const dbAuthAdmin = require("../db/adminLogin");
 const SECRET_KEY = cryopteor.randomBytes(32).toString("hex");
 require('dotenv').config({ path: '/app.env' })
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+
 
 module.exports = (api) => {
   api.use(bodyParser.json())
-
-  api.use((res, req, next) => {
-    dbAuthAdmin().then(data => {
-      const {usuario, senha} =  res.body
-      if (usuario == data.usuario && senha == data.senha) {
+  api.use(async(req,res,next) => {
+    const db = await dbAuthAdmin()
+    const {usuario, senha} =  req.body
+      verificarInput(usuario, senha,req)
+      if (usuario == db.usuario && senha == db.senha) {
         const jwt = jsonWebToken.sign({usuario, senha}, SECRET_KEY, {expiresIn: "1h"})
-        req.send({status: 200, msg: "login feito com sucesso.", login: true, token: jwt})
+        res.send({status: 200, msg: "login feito com sucesso.", login: true, token: jwt})
+
         next()
       }else{
-        req.send({status: 404, login: false, msg: "Dados incorretos, verifique as credenciais."}).status(404)  
+        res.status(404).send({status: 404, login: false, msg: "Dados incorretos, verifique as credenciais."})
       }
-     })
   })
 
-  api.post("/loginAdm", async(res, data) => {
+  api.post("/loginAdm", async(res,req) => {
     try {
       console.log('bem vindo');
-      // verificarInput(usuario, senha, data);
+     await req.sendFile(__dirname, "F:\suporte de atendimento wpp\support-system\backend\index.html ")
     } catch (error) {
-      data.send({status: 404, login: false, msg: "ocorreu um erro tente novamente."}).status(404)  
+    await  req.send({status: 404, login: false, msg: "ocorreu um erro tente novamente."}).status(404)  
     }
   });
 };
 
-function verificarInput(usuario, senha, data) {
+ async function verificarInput(usuario, senha, req) {
   if (!usuario && !senha) {
-    data.send({ msg: "Os dados estao vazios", login: false, status: 401 }).status(401);
+    req.send({ msg: "Os dados estao vazios", login: false, status: 401 }).status(401);
   }
 }
