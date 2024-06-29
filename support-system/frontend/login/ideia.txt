@@ -49,7 +49,7 @@
 
 3. *Autenticação e Autorização:*
    - *Login Seguro:* Autenticação segura para agentes usando JWT.
-   - *Controle de Acesso:* Diferentes níveis de acesso para diferentes tipos de agentes (administradores, suportes, etc.).
+   
 
 ### Conclusão
 

@@ -17,7 +17,7 @@ const dados = {  usuario: inputUserName.value,  senha: passwordInput.value   }
     const dados2 = await httpRequest.json()
     const {login} = dados2
     valide(login)
-    console.log(dados2);
+    // console.log(dados2);
   } catch (error) {
     console.log("ocorreu um erro inesperado", error);
   }
@@ -26,7 +26,7 @@ const dados = {  usuario: inputUserName.value,  senha: passwordInput.value   }
 function valide(login) {
   if (login == true) {
     alert("em 5 segundos voce ira para a pagina.");
-    location.href = "../ticket.html";
+    location.href = "../ticket2.html";
   }
 }
 

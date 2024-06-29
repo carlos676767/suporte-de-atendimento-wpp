@@ -5,7 +5,7 @@ const SECRET_KEY = cryopteor.randomBytes(32).toString("hex");
 require('dotenv').config({ path: '/app.env' })
 const bodyParser = require('body-parser');
 const cors = require("cors")
-
+const path = require("path")
 module.exports = (api) => {
   api.use(cors())
   api.use(bodyParser.json())
@@ -16,6 +16,7 @@ module.exports = (api) => {
         if (usuario == db.usuario && senha == db.senha) {
           const jwt = jsonWebToken.sign({usuario, senha}, SECRET_KEY, {expiresIn: "1h"})
           res.send({status: 200, msg: "login feito com sucesso.", login: true, token: jwt})
+          // res.sendFile(path.join(__dirname + '/support-system/frontend/ticket2.html'))
         }else{
           res.status(404).send({status: 404, login: false, msg: "Dados incorretos, verifique as credenciais."})
         }
@@ -26,8 +27,3 @@ module.exports = (api) => {
   });
 };
 
-  function verificarInput(usuario, senha, res) {
-  if (!usuario && !senha) {
-    res.send({ msg: "Os dados estao vazios", login: false, status: 401 }).status(401);
-  }
-}
