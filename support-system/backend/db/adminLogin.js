@@ -3,7 +3,7 @@ const path = require("path")
 const caminhonv = path.resolve(".env")
 console.log(caminhonv);
 require('dotenv').config({ path:caminhonv })
-const url = `mongodb+srv://admin:${process.env}@dados.7d94myt.mongodb.net/`
+const url = `mongodb+srv://admin:@dados.7d94myt.mongodb.net/`
 const dbName = "suporteWpp"
 const collection = "login"
 
