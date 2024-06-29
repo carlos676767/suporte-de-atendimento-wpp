@@ -1,0 +1,56 @@
+### Funcionalidades do Bot de WhatsApp
+
+1. *Registro e Autenticação de Usuários:*
+   - *Registro Inicial:* Permite que novos usuários se registrem fornecendo informações básicas.
+   - *Verificação de Identidade:* Envia um código de verificação para confirmar a identidade do usuário.
+
+   
+2. *Abertura de Tickets:*
+   - *Coleta de Informações:* Solicita e coleta informações detalhadas sobre o problema ou questão do cliente.
+   - *Criação de Ticket:* Cria um novo ticket no sistema de suporte e informa o usuário sobre o número do ticket.
+
+3. *Envio de Confirmação por Email:*
+   - *Geração de JWT:* Gera um token JWT contendo o ID do ticket e outras informações relevantes.
+   - *Envio de Email:* Envia um email ao cliente com um link para consultar o status do ticket, incluindo o JWT como parâmetro.
+
+4. *Consulta de Status de Tickets:*
+   - *Status em Tempo Real:* Permite que os clientes consultem o status de seus tickets em tempo real.
+   - *Notificações de Atualização:* Notifica os clientes sobre atualizações importantes no status de seus tickets.
+
+5. *Respostas Automatizadas:*
+   - *Base de Conhecimento:* Utiliza uma base de conhecimento para fornecer respostas automáticas a perguntas frequentes.
+   - *Redirecionamento para Agentes:* Redireciona questões complexas ou não resolvidas para agentes de suporte humanos.
+
+6. *Fechamento de Tickets:*
+   - *Confirmação de Resolução:* Pergunta ao cliente se o problema foi resolvido e se o ticket pode ser fechado.
+   - *Encerramento de Ticket:* Marca o ticket como resolvido e notifica o cliente.
+
+### Funcionalidades do Backend (Node.js com Express)
+
+1. *API RESTful:*
+   - *Autenticação e Autorização:* Endpoints para registro, login e verificação de tokens JWT.
+   - *Gestão de Tickets:* Endpoints para criar, ler, atualizar e deletar tickets.
+   - *Envio de Emails:* Integração com o Nodemailer para enviar emails de confirmação e status.
+
+2. *Integração com WhatsApp:*
+   - *Interação com Mensagens:* Uso da biblioteca whatsapp-web.js para interagir com mensagens recebidas e enviadas no WhatsApp.
+   - *Automatização de Processos:* Automatiza processos de registro, abertura de tickets e consultas via WhatsApp.
+
+### Funcionalidades da Interface Web (para Agentes de Suporte)
+
+1. *Gestão de Tickets:*
+   - *Visualização de Tickets:* Interface para os agentes visualizarem todos os tickets abertos.
+   - *Atualização de Status:* Permite que os agentes atualizem o status dos tickets (em progresso, resolvido, etc.).
+   - *Respostas Personalizadas:* Agentes podem responder diretamente aos tickets e fornecer soluções.
+
+2. *Histórico de Interações:*
+   - *Registro Completo:* Exibe o histórico completo de interações com cada cliente para melhor contexto.
+   - *Anotações e Comentários:* Permite que os agentes adicionem anotações e comentários aos tickets.
+
+3. *Autenticação e Autorização:*
+   - *Login Seguro:* Autenticação segura para agentes usando JWT.
+   - *Controle de Acesso:* Diferentes níveis de acesso para diferentes tipos de agentes (administradores, suportes, etc.).
+
+### Conclusão
+
+O bot de WhatsApp será uma ferramenta poderosa para automatizar e facilitar o suporte ao cliente, enquanto a interface web permitirá que os agentes de suporte gerenciem e resolvam tickets de maneira eficiente. O backend em Node.js com Express atuará como o núcleo do sistema, integrando todas as funcionalidades e garantindo um fluxo de trabalho suave e seguro. Se precisar de mais detalhes ou ajuda na implementação, estou à disposição!
