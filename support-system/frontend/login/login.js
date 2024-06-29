@@ -25,7 +25,7 @@ async function httpLogin() {
 function valide(login) {
   if (login) {
     alert("em 5 segundos voce ira para a pagina.");
-    location.href = "../ticket2.html";
+    location.href = "../ticket.html";
   }
 };
 
@@ -40,9 +40,10 @@ addEventListener("DOMContentLoaded", () => {
   })
     .then((response) => response.json())
     .then(data => {
-      console.log(data);
+      console.log(data.login);
+
       if (data.login) {
-        location.href = "./login.html"
+        location.href = "../ticket.html"
       };
     })
     .catch(error => {

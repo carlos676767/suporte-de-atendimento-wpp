@@ -20,11 +20,15 @@ function checkingJWT(api) {
       const token = req.headers.authorization.slice(7);
       jsonWebToken.verify(token, SECRET_KEY, (err, decoded) => {
         if (err) {
-          res.status(401).send({ login: false, status: 401 })
           next();
+        }
+        if (!err) {
+          res.send({ status: 200, msg: "login feito com sucesso.", login: true })
+          return
         }
       });
     } else {
+      console.log();
       next();
     };
   });
