@@ -1,7 +1,5 @@
 const { MongoClient } = require('mongodb');
-const mensagemEmailExistente = require('../bot/commands/msgTemEmail');
-const mensagemConfirmacaoEmail = require('../bot/commands/confirmarEmail');
-const mensagemCadastroSucesso = require('../bot/commands/msgCorfimEmail');
+
 const url = "mongodb+srv://admin:admin1234@dados.7d94myt.mongodb.net/"
 const dbName = "suporteWpp"
 const collection = "cadastroUsers"
@@ -18,24 +16,18 @@ const connectDatabase = async () => {
   }
 };
 
-
-const listDocumentsDb = async (email, msg) => {
+const listDocumentsDb = async (emai, msg) => {
   try {
     const db = await connectDatabase();
-    const listDocuments = await db.find().toArray();
-    listDocuments.forEach((data) => {
-      if (data.email == email) {
-       msg.reply(mensagemEmailExistente)
-      }else{
-        msg.reply(mensagemConfirmacaoEmail)
-        if (true) {
-          msg.reply(mensagemCadastroSucesso)
-        }
-      }
-    });
+    const query = {email: emai}
+    const listDocuments = await db.findOne(query)
+    console.log();
+    return listDocuments
+   
   } catch (error) {
     console.error(error)
   }
 };
+
 
 module.exports = listDocumentsDb

@@ -1,2 +1,2 @@
-const mensagemCadastroSucesso = "✅ Seu nome e email foram cadastrados com sucesso!";
+const mensagemCadastroSucesso = "✅Email confirmado com sucesso, cadastro finalizado.";
 module.exports = mensagemCadastroSucesso
