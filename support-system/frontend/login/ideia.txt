@@ -46,11 +46,5 @@
 2. *Histórico de Interações:*
    - *Registro Completo:* Exibe o histórico completo de interações com cada cliente para melhor contexto.
    - *Anotações e Comentários:* Permite que os agentes adicionem anotações e comentários aos tickets.
-
-3. *Autenticação e Autorização:*
-   - *Login Seguro:* Autenticação segura para agentes usando JWT.
    
 
-### Conclusão
-
-O bot de WhatsApp será uma ferramenta poderosa para automatizar e facilitar o suporte ao cliente, enquanto a interface web permitirá que os agentes de suporte gerenciem e resolvam tickets de maneira eficiente. O backend em Node.js com Express atuará como o núcleo do sistema, integrando todas as funcionalidades e garantindo um fluxo de trabalho suave e seguro. Se precisar de mais detalhes ou ajuda na implementação, estou à disposição!
