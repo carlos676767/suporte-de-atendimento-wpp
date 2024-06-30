@@ -33,7 +33,6 @@ const optionRegister = () => {
       msg.reply(mensagem);
       client.once("message", async(ms) => {
         const dadosMensagem = ms.body.split(" ")
-        console.log(dadosMensagem[1]);
         await listDocumentsDb(dadosMensagem[1], ms)
       
       })
