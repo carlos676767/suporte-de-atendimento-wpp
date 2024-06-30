@@ -19,13 +19,7 @@ function checkingJWT(api) {
     if (req.headers.authorization) {
       const token = req.headers.authorization.slice(7);
       jsonWebToken.verify(token, SECRET_KEY, (err, decoded) => {
-        if (err) {
-          next();
-        }
-        if (!err) {
-          res.send({ status: 200, msg: "login feito com sucesso.", login: true })
-          return
-        }
+        verifyErrorJwt(err, next, res)
       });
     } else {
       console.log();
@@ -33,6 +27,14 @@ function checkingJWT(api) {
     };
   });
 };
+
+function verifyErrorJwt(err, next, res) {
+  if (err) {
+    next();
+  }else{
+    res.send({ status: 200, msg: "login feito com sucesso.", login: true })
+  }
+}
 
 function post(api) {
   api.post("/loginAdm", async (req, res) => {

@@ -11,15 +11,14 @@ addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       console.log(data.login);
       if (!data.login) {
-        alertaDeslogado()
-        redirecionar()
+        alertaDeslogado();
+        redirecionar();
       }
     })
     .catch((error) => {
       console.log(error);
     });
 });
-
 
 const redirecionar = () => {
   setInterval(() => {
@@ -35,5 +34,3 @@ const alertaDeslogado = () => {
     confirmButtonText: "OK",
   });
 };
-
-

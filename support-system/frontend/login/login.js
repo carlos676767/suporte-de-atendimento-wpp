@@ -6,11 +6,11 @@ async function httpLogin() {
   const dados = { usuario: inputUserName.value, senha: passwordInput.value };
   try {
     const httpRequest = await fetch("http://localhost:8080/loginAdm", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(dados)
+      body: JSON.stringify(dados),
     });
 
     const dados2 = await httpRequest.json();
@@ -20,14 +20,13 @@ async function httpLogin() {
   } catch (error) {
     console.log("ocorreu um erro inesperado", error);
   }
-};
+}
 
 function valide(login) {
   if (login) {
-    alert("em 5 segundos voce ira para a pagina.");
     location.href = "../ticket.html";
   }
-};
+}
 
 addEventListener("DOMContentLoaded", () => {
   const jwt = localStorage.getItem("tk");
@@ -35,20 +34,18 @@ addEventListener("DOMContentLoaded", () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwt}`,
+      Authorization: `Bearer ${jwt}`,
     },
   })
     .then((response) => response.json())
-    .then(data => {
-      console.log(data.login);
-
+    .then((data) => {
       if (data.login) {
-        location.href = "../ticket.html"
-      };
+        location.href = "../ticket.html";
+      }
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
-    })
+    });
 });
 
 button.addEventListener("click", () => {
