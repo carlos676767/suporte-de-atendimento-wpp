@@ -30,4 +30,3 @@ const sendEmail = async(emailPerson) => {
 
 
 module.exports = sendEmail
-// module.exports = randomCod

@@ -16,19 +16,31 @@ const connectDatabase = async () => {
   }
 };
 
-const listDocumentsDb = async (emai) => {
+const listDocumentsDb = async (email) => {
   try {
     const db = await connectDatabase();
-    const query = {email: emai}
+    const query = {emai: email}
     const listDocuments = await db.findOne(query)
-    console.log();
+    console.log(query);
     return listDocuments
-   
+  
   } catch (error) {
     console.error(error)
   }
 };
 
+const newDadosUsers = async(nome,email, telefone) => {
+  try {
+    const db = await connectDatabase()
+    db.insertOne({name: nome, emai: email, tel: telefone})
+  } catch (error) {
+    console.error("error when entering data")
+  }
+};
 
-module.exports = listDocumentsDb
+module.exports = {
+  listDocumentsDb,
+  newDadosUsers
+}
+
 

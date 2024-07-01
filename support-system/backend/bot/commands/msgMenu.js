@@ -2,7 +2,6 @@ const menu = `Olá, sou o bot de suporte 🤖. Por favor, escolha uma das opçõ
 
 1. Registro e Autenticação de Usuários:
    - Digite "1" para registrar suas informações básicas.
-   - Digite "2" para inserir o código de verificação que você recebeu.
 
 2. Abertura de Tickets:
    - Digite "3" para fornecer detalhes sobre o problema ou questão que você está enfrentando.
