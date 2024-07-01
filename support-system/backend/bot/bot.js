@@ -11,6 +11,7 @@ const { listDocumentsDb, newDadosUsers } = require("../db/inforsCadastroUsuarios
 const promptMessage = require("./commands/msgTicket");
 const { cadastroTicketUser } = require("../db/tickets");
 const pro = require("./commands/titleProblema");
+const enfretado = require("./commands/problemamaenfretado");
 
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -75,7 +76,7 @@ const cadastrarTicket = () => {
     await msg.reply(pro)
       client.once("message", async(ms) => {
        const title = ms.body
-       ms.reply("Digite o problema")
+       ms.reply(enfretado)
        client.once("message", (mss) => {
         const acontecido = mss.body
         mss.reply("Digite o tipo de urgencia")
