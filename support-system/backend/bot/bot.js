@@ -12,6 +12,8 @@ const promptMessage = require("./commands/msgTicket");
 const { cadastroTicketUser } = require("../db/tickets");
 const pro = require("./commands/titleProblema");
 const enfretado = require("./commands/problemamaenfretado");
+const urgencia = require("./commands/urgencia");
+const { ticketMsg, randomTicket } = require("./commands/msgTi");
 
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -79,10 +81,12 @@ const cadastrarTicket = () => {
        ms.reply(enfretado)
        client.once("message", (mss) => {
         const acontecido = mss.body
-        mss.reply("Digite o tipo de urgencia")
+        mss.reply(urgencia)
         client.once("message", async(msss) => {
          const urgencia = await msss.body
-          await cadastroTicketUser(title, acontecido, urgencia)
+         msss.reply(ticketMsg)
+         console.log(randomTicket);
+          await cadastroTicketUser(title, acontecido, urgencia, randomTicket)
         })
        })
       })

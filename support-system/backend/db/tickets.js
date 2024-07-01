@@ -24,6 +24,7 @@ const cadastroTicketUser = async (title, acontecido, situacao, ticket) => {
       titulo: title,
       acontecido: acontecido,
       situacao: situacao,
+      ticket: ticket
     });
     return appendDados
   } catch (error) {
