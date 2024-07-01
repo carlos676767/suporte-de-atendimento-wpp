@@ -9,6 +9,8 @@ const sendEmail = require("../email/confirmarCadastroEmail");
 const mensagemCadastroSucesso = require("./commands/msgCorfimEmail");
 const { listDocumentsDb, newDadosUsers } = require("../db/inforsCadastroUsuarios");
 const promptMessage = require("./commands/msgTicket");
+const { cadastroTicketUser } = require("../db/tickets");
+const pro = require("./commands/titleProblema");
 
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -67,9 +69,22 @@ const optionRegister = () => {
  }
 
 const cadastrarTicket = () => {
-  client.on("message", (msg) => {
+  client.on("message", async(msg) => {
     if (msg.body == "2") {
-      msg.reply(promptMessage)
+    await msg.reply(promptMessage)
+    await msg.reply(pro)
+      client.once("message", async(ms) => {
+       const title = ms.body
+       ms.reply("Digite o problema")
+       client.once("message", (mss) => {
+        const acontecido = mss.body
+        mss.reply("Digite o tipo de urgencia")
+        client.once("message", async(msss) => {
+         const urgencia = await msss.body
+          await cadastroTicketUser(title, acontecido, urgencia)
+        })
+       })
+      })
     }
   })
 }
@@ -79,6 +94,7 @@ const bot = () => {
   optionRegister();
   cadastrarTicket();
 }
+
 
 (async () => {
   try {
