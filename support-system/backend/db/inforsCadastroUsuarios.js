@@ -38,6 +38,16 @@ const newDadosUsers = async(nome,email, telefone) => {
   }
 };
 
+const cadastroTicketUser = async(title, acontecido, situacao) => {
+  try {
+    const db = await connectDatabase()
+    
+  } catch (error) {
+    
+  }
+}
+
+
 module.exports = {
   listDocumentsDb,
   newDadosUsers

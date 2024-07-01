@@ -8,6 +8,7 @@ const randomCod = require("../email/confirmarCadastroEmail");
 const sendEmail = require("../email/confirmarCadastroEmail");
 const mensagemCadastroSucesso = require("./commands/msgCorfimEmail");
 const { listDocumentsDb, newDadosUsers } = require("../db/inforsCadastroUsuarios");
+const promptMessage = require("./commands/msgTicket");
 
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -65,10 +66,18 @@ const optionRegister = () => {
    });
  }
 
+const cadastrarTicket = () => {
+  client.on("message", (msg) => {
+    if (msg.body == "2") {
+      msg.reply(promptMessage)
+    }
+  })
+}
 
 const bot = () => {
-  menu()
-  optionRegister()
+  menu();
+  optionRegister();
+  cadastrarTicket();
 }
 
 (async () => {
