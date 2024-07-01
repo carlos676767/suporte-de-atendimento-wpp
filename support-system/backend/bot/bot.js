@@ -31,7 +31,6 @@ const menu = () => {
   });
 };
  
-
 const optionRegister = () => {
   client.on("message", (msg) => {
     if (msg.body == '1') {
@@ -49,13 +48,14 @@ const optionRegister = () => {
   });
 };
 
-
  async function autenticarEmail(ms, dadosMensagem) {
    ms.reply(mensagemConfirmacaoEmail);
    const enviarEmail = await sendEmail(dadosMensagem[1]);
    client.once("message", (mss) => {
      if (mss.body == enviarEmail) {
        mss.reply(mensagemCadastroSucesso);
+       const tellFormatadoSemLetras = ms.from.replace("@c.us", "")
+       console.log(tellFormatado, dadosMensagem[0], dadosMensagem[1]);
      }
    });
  }

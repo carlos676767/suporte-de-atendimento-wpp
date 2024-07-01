@@ -16,7 +16,7 @@ const connectDatabase = async () => {
   }
 };
 
-const listDocumentsDb = async (emai, msg) => {
+const listDocumentsDb = async (emai) => {
   try {
     const db = await connectDatabase();
     const query = {email: emai}
@@ -31,3 +31,4 @@ const listDocumentsDb = async (emai, msg) => {
 
 
 module.exports = listDocumentsDb
+
