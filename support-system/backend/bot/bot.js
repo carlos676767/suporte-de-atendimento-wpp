@@ -14,6 +14,7 @@ const pro = require("./commands/titleProblema");
 const enfretado = require("./commands/problemamaenfretado");
 const msgUrgencia = require("./commands/urgencia");
 const { ticketMsg, randomTicket } = require("./commands/msgTi");
+const valideEmail = require("./commands/msgValidEmail");
 
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -88,7 +89,7 @@ const cadastrarTicket = () => {
         const urgencia = await trazerMsgEretornar(ticketMsg)
         await cadastroTicketUser(title, acontecido, urgencia, randomTicket);
       } else {
-        msg.reply("Verificamos e seu endereco de email nao esta cadastrado, cadastre um." );
+        msg.reply(valideEmail);
       }
     }
   });
