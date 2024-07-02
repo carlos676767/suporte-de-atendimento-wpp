@@ -21,9 +21,7 @@ const listDocumentsDb = async (email) => {
     const db = await connectDatabase();
     const query = {emai: email}
     const listDocuments = await db.findOne(query)
-    console.log(query);
     return listDocuments
-  
   } catch (error) {
     console.error(error)
   }
@@ -40,10 +38,24 @@ const newDadosUsers = async(nome,email, telefone) => {
 
 
 
+const listarUserNumber = async (telefone) => {
+  try {
+    const db = await connectDatabase();
+    const query = {tel: telefone}
+    const listDocuments = await db.findOne(query)
+    console.log(query);
+    return listDocuments
+  
+  } catch (error) {
+    console.error(error)
+  }
+};
+
 
 module.exports = {
   listDocumentsDb,
   newDadosUsers,
+  listarUserNumber
 }
 
 

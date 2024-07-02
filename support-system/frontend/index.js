@@ -39,21 +39,36 @@ const alertaDeslogado = () => {
   try {
     const data = await fetch("http://localhost:8080/tickets");
     const response = await data.json();
-    const createDiv = document.createElement("div");
-    const section = document.querySelector("section");
-    createDiv.classList.add("ticket");
+    const tbody = document.querySelector("tbody");
+    let contador = 0
+    tbody.innerHTML = ""
     response.dbDados.forEach((dados) => {
       const { titulo, acontecido, situacao, ticket } = dados;
-      createDiv.innerHTML += ` <h3>${titulo}</h3>
-      <p><strong><i class="fa-solid fa-user"></i> User:</strong> John Doe</p>
-      <p><strong><i class="fa-solid fa-circle-xmark"></i> problem:</strong> ${acontecido}</p>
-      <p><strong><i class="fa-solid fa-user-gear"></i> situation:</strong>${situacao}</p>
-      <p><strong><i class="fa-solid fa-ticket"></i> Ticket: </strong>${ticket}</p>
-      <textarea placeholder="Write your response here..."></textarea>
-      <button>Send Response</button>`;
-      section.appendChild(createDiv);
+      tbody.innerHTML += `<tr>
+      <td>1</td>
+      <td>${titulo}</td>
+      <td><i class="fas fa-circle-notch text-primary"></i> Open</td>
+      <td>${situacao}</td>
+      <td>${ticket}</td>
+      <td>${acontecido}</td>
+      <td>
+          <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#responseModal">
+              <i class="fas fa-reply"></i> Respond
+          </button>
+      </td>
+  </tr>`;
+  ++contador
+  totalTickets(contador)
     });
   } catch (error) {
     console.error("ocorreu um error", error);
   }
 })();
+
+
+const totalTickets = (count) => {
+  const totalTickets = document.getElementById("totalTickets")
+  totalTickets.innerHTML = count
+}
+
+

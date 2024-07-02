@@ -5,10 +5,9 @@ require('dotenv').config({ path:caminhonv })
 const url = `mongodb+srv://admin:admin1234@dados.7d94myt.mongodb.net/`
 const dbName = "suporteWpp"
 const collection = "login"
-
+const dbConnect = new MongoClient(url);
 async function dbAuthAdmin() {
   try {
-    const dbConnect = new MongoClient(url);
     await dbConnect;
     const dbNameConect = await dbConnect.db(dbName);
     const connectColection = await dbNameConect.collection(collection).find().toArray();
@@ -16,6 +15,8 @@ async function dbAuthAdmin() {
    return {usuario,senha}
   } catch (error) {
     console.error("ocorreu um error");
+  }finally{
+    dbConnect.close()
   }
 }
 

@@ -7,12 +7,12 @@ const mensagemConfirmacaoEmail = require("./commands/confirmarEmail");
 const randomCod = require("../email/confirmarCadastroEmail");
 const sendEmail = require("../email/confirmarCadastroEmail");
 const mensagemCadastroSucesso = require("./commands/msgCorfimEmail");
-const { listDocumentsDb, newDadosUsers } = require("../db/inforsCadastroUsuarios");
+const { listDocumentsDb, newDadosUsers, listarUserNumber } = require("../db/inforsCadastroUsuarios");
 const promptMessage = require("./commands/msgTicket");
 const { cadastroTicketUser } = require("../db/tickets");
 const pro = require("./commands/titleProblema");
 const enfretado = require("./commands/problemamaenfretado");
-const urgencia = require("./commands/urgencia");
+const msgUrgencia = require("./commands/urgencia");
 const { ticketMsg, randomTicket } = require("./commands/msgTi");
 
 const client = new Client({
@@ -48,7 +48,6 @@ const optionRegister = () => {
         const dadosMensagem = ms.body.split(" ");
         console.log(dadosMensagem[1]);
         const serach = await listDocumentsDb(dadosMensagem[1], ms);
-        console.log(serach);
         if (serach) {
           ms.reply(mensagemEmailExistente)
         } else {
@@ -59,39 +58,53 @@ const optionRegister = () => {
   });
 };
 
- async function autenticarEmail(ms, dadosMensagem) {
+async function autenticarEmail(ms, dadosMensagem) {
    ms.reply(mensagemConfirmacaoEmail);
    const enviarEmail = await sendEmail(dadosMensagem[1]);
-   client.once("message", async(mss) => {
+   client.once("message", async (mss) => {
      if (mss.body == enviarEmail) {
        mss.reply(mensagemCadastroSucesso);
-       const tellFormatadoSemLetras = mss.from.replace("@c.us", "")
-       await newDadosUsers(dadosMensagem[0], dadosMensagem[1], tellFormatadoSemLetras)
+       const tellFormatadoSemLetras = mss.from.replace("@c.us", "");
+       await newDadosUsers(
+         dadosMensagem[0],
+         dadosMensagem[1],
+         tellFormatadoSemLetras
+       );
      }
    });
- }
+}
 
 const cadastrarTicket = () => {
-  client.on("message", async(msg) => {
+  client.on("message", async (msg) => {
     if (msg.body == "2") {
-    await msg.reply(promptMessage)
-    await msg.reply(pro)
-      client.once("message", async(ms) => {
-       const title = ms.body
-       ms.reply(enfretado)
-       client.once("message", (mss) => {
-        const acontecido = mss.body
-        mss.reply(urgencia)
-        client.once("message", async(msss) => {
-         const urgencia = await msss.body
-         msss.reply(ticketMsg)
-         console.log(randomTicket);
-          await cadastroTicketUser(title, acontecido, urgencia, randomTicket)
-        })
-       })
-      })
+      const number = msg.from.replace("@c.us", "");
+      console.log(number);
+      const buscarNumber = await listarUserNumber(number);
+      if (buscarNumber) {
+        await msg.reply(promptMessage);
+        await msg.reply(pro);
+        const title =  await trazerMsgEretornar(enfretado)
+        const acontecido = await trazerMsgEretornar(msgUrgencia)
+        const urgencia = await trazerMsgEretornar(ticketMsg)
+        await cadastroTicketUser(title, acontecido, urgencia, randomTicket);
+      } else {
+        msg.reply("Verificamos e seu endereco de email nao esta cadastrado, cadastre um." );
+      }
     }
+  });
+};
+
+function ouviente(event) {
+  return new Promise((resolve) => {
+   client.once(event, resolve)
   })
+}
+
+
+async function trazerMsgEretornar(msg) {
+  const mensagem = await ouviente("message");
+  mensagem.reply(msg);
+  return mensagem.body;
 }
 
 const bot = () => {
