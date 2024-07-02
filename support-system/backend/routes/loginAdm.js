@@ -42,13 +42,12 @@ function post(api) {
       const { usuario, senha } = req.body;
       const db = await dbAuthAdmin();
       if (usuario == db.usuario && senha == db.senha) {
-        const jwt = jsonWebToken.sign({ usuario, senha }, SECRET_KEY, { expiresIn: "60s" })
+        const jwt = jsonWebToken.sign({ usuario, senha }, SECRET_KEY, { expiresIn: "1h" })
         res.send({ status: 200, msg: "login feito com sucesso.", login: true, token: jwt })
       } else {
         res.status(404).send({ status: 404, login: false, msg: "Dados incorretos, verifique as credenciais." })
       }
     } catch (error) {
-      console.log(error);
       res.send({ status: 404, login: false, msg: "ocorreu um erro tente novamente." }).status(404)
     };
   });

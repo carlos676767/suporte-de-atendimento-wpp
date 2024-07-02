@@ -1,6 +1,7 @@
 const cryptor = require("crypto")
 const nodeMailer = require("nodemailer")
-const configuracao = require("../../../config.json")
+const configuracao = require("../../../config.json");
+const html = require("./emailConfirm");
 
 function randomCod() {
     return cryptor.randomBytes(6).toString("hex")
@@ -23,7 +24,7 @@ const sendEmail = async(emailPerson) => {
         from: configuracao.email,
         to: emailPerson,
         subject: "Confirmação de Email: Por favor, confirme seu endereço de email conosco",
-        text: cod
+        html: html(cod)
     })
     return cod
 }

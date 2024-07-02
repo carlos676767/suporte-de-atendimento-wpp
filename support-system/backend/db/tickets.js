@@ -33,6 +33,18 @@ const cadastroTicketUser = async (title, acontecido, situacao, ticket) => {
 };
 
 
+ async function mostrarTicketsAbertos() {
+  try {
+    const db = await connectDb()
+    const dados = await db.find().toArray()
+    return dados
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 module.exports = {
-    cadastroTicketUser
+    cadastroTicketUser,
+    mostrarTicketsAbertos
 }

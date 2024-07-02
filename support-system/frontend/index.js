@@ -34,3 +34,26 @@ const alertaDeslogado = () => {
     confirmButtonText: "OK",
   });
 };
+
+(async () => {
+  try {
+    const data = await fetch("http://localhost:8080/tickets");
+    const response = await data.json();
+    const createDiv = document.createElement("div");
+    const section = document.querySelector("section");
+    createDiv.classList.add("ticket");
+    response.dbDados.forEach((dados) => {
+      const { titulo, acontecido, situacao, ticket } = dados;
+      createDiv.innerHTML += ` <h3>${titulo}</h3>
+      <p><strong><i class="fa-solid fa-user"></i> User:</strong> John Doe</p>
+      <p><strong><i class="fa-solid fa-circle-xmark"></i> problem:</strong> ${acontecido}</p>
+      <p><strong><i class="fa-solid fa-user-gear"></i> situation:</strong>${situacao}</p>
+      <p><strong><i class="fa-solid fa-ticket"></i> Ticket: </strong>${ticket}</p>
+      <textarea placeholder="Write your response here..."></textarea>
+      <button>Send Response</button>`;
+      section.appendChild(createDiv);
+    });
+  } catch (error) {
+    console.error("ocorreu um error", error);
+  }
+})();
