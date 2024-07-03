@@ -4,6 +4,9 @@ const button = document.querySelector("button");
 
 async function httpLogin() {
   const dados = { usuario: inputUserName.value, senha: passwordInput.value };
+
+  
+
   try {
     const httpRequest = await fetch("http://localhost:8080/loginAdm", {
       method: "POST",
@@ -48,6 +51,11 @@ addEventListener("DOMContentLoaded", () => {
     });
 });
 
-button.addEventListener("click", () => {
+const formulario = document.querySelector("form");
+formulario.addEventListener("submit", (event) => {
+  event.preventDefault()
+})
+button.addEventListener("click", (event) => {
+
   httpLogin();
 });

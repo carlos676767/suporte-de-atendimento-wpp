@@ -15,8 +15,6 @@ async function dbAuthAdmin() {
    return {usuario,senha}
   } catch (error) {
     console.error("ocorreu um error");
-  }finally{
-    dbConnect.close()
   }
 }
 

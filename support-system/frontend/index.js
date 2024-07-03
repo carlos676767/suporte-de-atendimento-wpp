@@ -23,7 +23,7 @@ addEventListener("DOMContentLoaded", () => {
 const redirecionar = () => {
   setInterval(() => {
     location.href = "./login/login.html";
-  }, 5000);
+  }, 2000);
 };
 
 const alertaDeslogado = () => {

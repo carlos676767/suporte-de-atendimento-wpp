@@ -95,10 +95,11 @@ const cadastrarTicket = () => {
   });
 };
 
+
 function ouviente(event) {
   return new Promise((resolve) => {
-   client.once(event, resolve)
-  })
+    client.once(event, resolve);
+  });
 }
 
 
